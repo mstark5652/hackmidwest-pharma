@@ -41,7 +41,7 @@ const Home = () => {
 
       <br />
 
-      <Typography variant='h6' component='h1'>Using data in your </Typography>
+      <Typography variant='h6' component='h1'>Connected with your </Typography>
       <a href='https://pouch.forhaley.com/'><img src='https://static.forhaley.com/images/Pouch.png' height='50px' /></a>
     </Box>
   )
