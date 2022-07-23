@@ -35,7 +35,7 @@ const Home = () => {
 
       <br />
 
-      <Button variant="contained" onClick={() => pushNotification('Hello')}>
+      <Button variant="contained" onClick={() => pushNotification('Hello ' + data.data.firstName + '. How can I help?')}>
           Talk to a Pharmacist
       </Button>
 
