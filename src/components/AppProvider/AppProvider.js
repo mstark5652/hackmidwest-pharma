@@ -25,7 +25,7 @@ const AppProvider = ({ children }) => {
   const [data, setData] = useState(defaultProfile)
   const [keyPair, setKeyPair] = useState(defaultKeyPair)
 
-  const [{ apiResult, error }] = useFetch() // 'http://localhost:8082/me'
+  const [{ apiResult, error }] = useFetch('https://api-rmtl2t3ega-uc.a.run.app/me') // 'http://localhost:8082/me'
   // const [{ }, setPayload] = useFetch('http://localhost:8082/me', null, 'PATCH')
 
   useEffect(() => {
@@ -36,17 +36,17 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     if (apiResult) {
-      setData(apiResult)
-      if (!apiResult.data || !apiResult.data.publicKey) {
-        generateKeyPair().then(handleKeyPair)
-      } else {
-        // read privateKey from local storage
-        const privateKeyData = localStorage.getItem(LS_PRIVATE_KEY_KEY)
-        keysFromString({
-          privateKey: privateKeyData,
-          publicKey: apiResult.data.publicKey
-        }).then(setKeyPair)
-      }
+      setData(apiResult.data.firstName ? apiResult : defaultProfile)
+      // if (!apiResult.data || !apiResult.data.publicKey) {
+      //   generateKeyPair().then(handleKeyPair)
+      // } else {
+      //   // read privateKey from local storage
+      //   const privateKeyData = localStorage.getItem(LS_PRIVATE_KEY_KEY)
+      //   keysFromString({
+      //     privateKey: privateKeyData,
+      //     publicKey: apiResult.data.publicKey
+      //   }).then(setKeyPair)
+      // }
     }
   }, [apiResult])
 
