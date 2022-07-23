@@ -10,7 +10,7 @@ const MobileScroll = () => (
 
 const Layout = ({ children }) => {
   return (
-    <Container maxWidth='lg'>
+    <Container maxWidth='sm'>
       {children}
       <Footer />
       <Notification />
