@@ -12,7 +12,8 @@ const LS_PRIVATE_KEY_KEY = 'pouch-priv-key'
 const defaultProfile = {
   data: {
     firstName: 'Katy',
-    lastName: ''
+    lastName: '',
+    activeRx: ['Red Pill','Blue Pill']
   }
 }
 const defaultKeyPair = {
@@ -26,7 +27,7 @@ const AppProvider = ({ children }) => {
   const [keyPair, setKeyPair] = useState(defaultKeyPair)
 
   const [{ apiResult, error }] = useFetch('https://api-rmtl2t3ega-uc.a.run.app/me') // 'http://localhost:8082/me'
-  // const [{ }, setPayload] = useFetch('http://localhost:8082/me', null, 'PATCH')
+  const [{ }, setPayload] = useFetch('https://api-rmtl2t3ega-uc.a.run.app/me', null, 'PATCH')
 
   useEffect(() => {
     if (error) {
@@ -65,13 +66,19 @@ const AppProvider = ({ children }) => {
     keyPair
   }
 
+  function handleUpdate(update){
+    //setPayload(update)
+    setData({data: Object.assign(data.data, update)})
+  }
+
   return (
     <AppContext.Provider value={{
       settings,
       setSettings,
       data,
       setData,
-      keyPair
+      keyPair,
+      setPayload: handleUpdate
     }}
     >
       {data && children}
