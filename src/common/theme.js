@@ -15,7 +15,7 @@ const theme = createTheme({
 const customTheme = createTheme({
   palette: {
     mode: 'light',
-    primary: { main: '#2fabb4' },
+    primary: { main: '#ff0000' },
     secondary: { main: '#ffffff' }
   },
   typography: {
@@ -25,6 +25,17 @@ const customTheme = createTheme({
       'sans-serif'
     ].join(','),
     fontStyle: 'normal'
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius:'50px', 
+          width:'250px', 
+          height:'100px'
+        }
+      }
+    }
   }
 })
 
