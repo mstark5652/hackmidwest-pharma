@@ -39,6 +39,10 @@ const Home = () => {
           Talk to a Pharmacist
       </Button>
 
+      <br />
+
+      <Typography variant='h6' component='h1'>Using data in your </Typography>
+      <a href='https://pouch.forhaley.com/'><img src='https://static.forhaley.com/images/Pouch.png' height='50px' /></a>
     </Box>
   )
 }
