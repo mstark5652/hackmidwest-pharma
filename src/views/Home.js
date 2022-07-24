@@ -1,4 +1,3 @@
-
 import React from 'react'
 
 import Box from '@mui/material/Box'
@@ -9,34 +8,35 @@ import useAppData from '../hooks/useAppData/useAppData'
 import useEventBus from '../hooks/useEventBus/useEventBus'
 
 const Home = () => {
-  const { data, keyPair , setPayload} = useAppData()
+  const { data, setPayload } = useAppData()
   const bus = useEventBus()
 
-
-  function pushNotification(content){
-    bus.emit('show-notification',{content})
+  function pushNotification (content) {
+    bus.emit('show-notification', { content })
   }
 
-  function handlePickup(){
-    pushNotification('Your meds are coming!');
-    setPayload({activeRx: []});
+  function handlePickup () {
+    pushNotification('Your meds are coming!')
+    setPayload({ activeRx: [] })
   }
 
   return (
-    <Box m={{ sx: 2, sm: 3 }} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+    <Box m={{ sx: 2, sm: 3 }} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       <br />
       <Typography variant='h5' component='h1'>Hi {data.data.firstName}!</Typography>
 
-      {data.data.activeRx.length ? <br /> : null}
+      {data.data.activeRx && data.data.activeRx.length > 0 && <br />}
 
-      {data.data.activeRx.length ? <Button variant="contained" onClick={() => handlePickup()}>
+      {data.data.activeRx && data.data.activeRx.length > 0 && (
+        <Button variant='contained' onClick={() => handlePickup()}>
           Pick up Prescription
-      </Button> : null}
+        </Button>
+      )}
 
       <br />
 
-      <Button variant="contained" onClick={() => pushNotification('Hello ' + data.data.firstName + '. How can I help?')}>
-          Talk to a Pharmacist
+      <Button variant='contained' onClick={() => pushNotification('Hello ' + data.data.firstName + '. How can I help?')}>
+        Talk to a Pharmacist
       </Button>
 
       <br />

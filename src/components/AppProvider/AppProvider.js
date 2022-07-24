@@ -13,7 +13,7 @@ const defaultProfile = {
   data: {
     firstName: 'Katy',
     lastName: '',
-    activeRx: ['Red Pill','Blue Pill']
+    activeRx: ['Red Pill', 'Blue Pill']
   }
 }
 const defaultKeyPair = {
@@ -23,11 +23,25 @@ const defaultKeyPair = {
 
 const AppProvider = ({ children }) => {
   const [settings, setSettings] = useState()
-  const [data, setData] = useState(defaultProfile)
+  const [profileId, setProfileId] = useState()
+  const [data, setData] = useState()
   const [keyPair, setKeyPair] = useState(defaultKeyPair)
 
-  const [{ apiResult, error }] = useFetch('https://api-rmtl2t3ega-uc.a.run.app/me') // 'http://localhost:8082/me'
-  const [{ }, setPayload] = useFetch('https://api-rmtl2t3ega-uc.a.run.app/me', null, 'PATCH')
+  const [{ apiResult, error }, , setUrl] = useFetch()
+  const [{ }, setPayload, setPatchUrl] = useFetch('', null, 'PATCH')
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const profileId = params.get('pouch-profile-id')
+    setProfileId(profileId)
+  }, [])
+
+  useEffect(() => {
+    if (profileId) {
+      setUrl(`https://api-rmtl2t3ega-uc.a.run.app/me?pouch-profile-id=${profileId}`)
+      setPatchUrl(`https://api-rmtl2t3ega-uc.a.run.app/me?pouch-profile-id=${profileId}`)
+    }
+  }, [profileId])
 
   useEffect(() => {
     if (error) {
@@ -66,9 +80,9 @@ const AppProvider = ({ children }) => {
     keyPair
   }
 
-  function handleUpdate(update){
-    //setPayload(update)
-    setData({data: Object.assign(data.data, update)})
+  function handleUpdate (update) {
+    setPayload(update)
+    setData({ data: Object.assign(data.data, update) })
   }
 
   return (
